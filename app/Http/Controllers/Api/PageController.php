@@ -13,6 +13,13 @@ class PageController extends Controller
     public function index(){
         $projects = Project::orderBy('id')->with('type', 'technologies')->get();
 
+        foreach($projects as $project){
+            if (!$project->img_path) {
+                $project->img_path = asset('img/placeholder.jpg');
+                $project->img_original_name = 'no image';
+            }
+        }
+
         return response()->json($projects);
     }
 
@@ -44,7 +51,7 @@ class PageController extends Controller
 
         foreach($type->projects as $project){
             $project->technologies;
-        };
+        }
 
         return response()->json($type);
     }
@@ -54,7 +61,12 @@ class PageController extends Controller
 
         foreach($technology->projects as $project){
             $project->technologies;
-        };
+
+            if (!$project->img_path) {
+                $project->img_path = asset('img/placeholder.jpg');
+                $project->img_original_name = 'no image';
+            }
+        }
 
         return response()->json($technology);
     }
