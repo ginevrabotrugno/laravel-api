@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.my_wrapper {
+    height: calc(100vh - 57px);
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.my_sidebar {
+    width: 186px;
+    height: 100%;
+}
+
+.my_container {
+    width: calc(100% - 186px);
+    overflow-y: auto;
+}
+
+
+.my_input {
+    border: none;
+}
