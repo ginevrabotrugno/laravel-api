@@ -33,7 +33,7 @@ class Project extends Model
     protected $casts =  [
         'start_date' => 'datetime:d/m/Y',
         'end_date' => 'datetime:d/m/Y',
-        'created_at' => 'datetime:d/m/Y',
-        'updated_at' => 'datetime:d/m/Y',
+        'created_at' => 'datetime:d/m/Y h:m:s',
+        'updated_at' => 'datetime:d/m/Y h:m:s',
     ];
 }

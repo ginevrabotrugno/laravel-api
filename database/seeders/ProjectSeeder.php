@@ -20,7 +20,7 @@ class ProjectSeeder extends Seeder
             $new_project = new Project();
             $new_project->type_id = Type::inRandomOrder()->first()->id;
             $new_project->title = $faker->sentence(3);
-            $new_project->slug = Helper::generateSlug($faker->sentence(3), Project::class);
+            $new_project->slug = Helper::generateSlug($new_project->title, Project::class);
             $new_project->description = $faker->paragraph;
             $new_project->start_date =  $faker->date;
             $new_project->end_date = $faker->optional()->date;
