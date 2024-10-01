@@ -212,6 +212,7 @@
 
             // Svuota localStorage dopo aver salvato gli ID
             localStorage.removeItem('selectedProjectIds');
+            selectedProjectIds = [];
         });
     </script>
 
