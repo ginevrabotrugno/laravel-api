@@ -13,20 +13,31 @@ class PageController extends Controller
     public function index(){
         $projects = Project::orderBy('id')->with('type', 'technologies')->get();
 
-        foreach($projects as $project){
-            if (!$project->img_path) {
-                $project->img_path = asset('img/placeholder.jpg');
-                $project->img_original_name = 'no image';
+        if($projects){
+            $success = true;
+            foreach($projects as $project){
+                if (!$project->img_path) {
+                    $project->img_path = asset('img/placeholder.jpg');
+                    $project->img_original_name = 'no image';
+                }
             }
+        } else {
+            $success = false;
         }
 
-        return response()->json($projects);
+        return response()->json(compact('success', 'projects'));
     }
 
     public function types(){
         $types = Type::orderby('id')->get();
 
-        return response()->json($types);
+        if($types){
+            $success = true;
+        } else {
+            $success = false;
+        }
+
+        return response()->json(compact('success', 'types'));
     }
 
     public function technologies(){
@@ -38,37 +49,56 @@ class PageController extends Controller
     public function project($slug){
         $project = Project::where('slug', $slug)->with('type', 'technologies')->first();
 
-        if (!$project->img_path) {
-            $project->img_path = asset('img/placeholder.jpg');
-            $project->img_original_name = 'no image';
+        if($project){
+            $success = true;
+            if (!$project->img_path) {
+                $project->img_path = asset('img/placeholder.jpg');
+                $project->img_original_name = 'no image';
+            }
+        } else {
+            $success = false;
         }
 
-        return response()->json($project);
+
+        return response()->json(compact('success', 'project'));
     }
 
     public function projectsPerType($slug){
         $type = Type::where('slug', $slug)->with('projects')->first();
 
-        foreach($type->projects as $project){
-            $project->technologies;
+        if($type){
+            $success = true;
+
+            foreach($type->projects as $project){
+                $project->technologies;
+            }
+        } else {
+            $success = false;
         }
 
-        return response()->json($type);
+
+        return response()->json(compact('success', 'type'));
     }
 
     public function projectsPerTechnology($slug){
         $technology = Technology::where('slug', $slug)->with('projects')->first();
 
-        foreach($technology->projects as $project){
-            $project->technologies;
+        if($technology){
+            $success = true;
+            foreach($technology->projects as $project){
+                $project->technologies;
 
-            if (!$project->img_path) {
-                $project->img_path = asset('img/placeholder.jpg');
-                $project->img_original_name = 'no image';
+                if (!$project->img_path) {
+                    $project->img_path = asset('img/placeholder.jpg');
+                    $project->img_original_name = 'no image';
+                }
             }
+        } else {
+            $success = true;
         }
 
-        return response()->json($technology);
+
+        return response()->json(compact('success', 'technology'));
     }
 
 }
