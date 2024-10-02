@@ -11,11 +11,11 @@ use App\Models\Type;
 class PageController extends Controller
 {
     public function index(){
-        $projects = Project::orderBy('id')->with('type', 'technologies')->paginate(10);
+        $data = Project::orderBy('id')->with('type', 'technologies')->paginate(10);
 
-        if($projects){
+        if($data){
             $success = true;
-            foreach($projects as $project){
+            foreach($data as $project){
                 if (!$project->img_path) {
                     $project->img_path = asset('img/placeholder.jpg');
                     $project->img_original_name = 'no image';
@@ -25,25 +25,31 @@ class PageController extends Controller
             $success = false;
         }
 
-        return response()->json(compact('success', 'projects'));
+        return response()->json(compact('success', 'data'));
     }
 
     public function types(){
-        $types = Type::orderby('id')->get();
+        $data = Type::orderby('id')->get();
 
-        if($types){
+        if($data){
             $success = true;
         } else {
             $success = false;
         }
 
-        return response()->json(compact('success', 'types'));
+        return response()->json(compact('success', 'data'));
     }
 
     public function technologies(){
-        $technologies = Technology::orderBy('id')->get();
+        $data = Technology::orderBy('id')->get();
 
-        return response()->json($technologies);
+        if($data){
+            $success = true;
+        } else {
+            $success = false;
+        }
+
+        return response()->json(compact('success', 'data'));
     }
 
     public function project($slug){
