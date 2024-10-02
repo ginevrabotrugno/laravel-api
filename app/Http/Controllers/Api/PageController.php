@@ -11,7 +11,7 @@ use App\Models\Type;
 class PageController extends Controller
 {
     public function index(){
-        $data = Project::orderBy('id')->with('type', 'technologies')->paginate(8);
+        $data = Project::orderBy('id', 'desc')->with('type', 'technologies')->paginate(8);
 
         if($data){
             $success = true;
