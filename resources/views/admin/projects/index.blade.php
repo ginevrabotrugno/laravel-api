@@ -9,6 +9,12 @@
             </div>
         @endif
 
+        @if (session('restored'))
+            <div class="alert alert-success" role="alert">
+                {{ session('restored') }}
+            </div>
+        @endif
+
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}

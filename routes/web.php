@@ -30,7 +30,9 @@ Route::middleware(['auth', 'verified'])
         Route::get('projs-per-type', [TypeController::class, 'typeProjects'])->name('typeProjects');
         Route::get('projects-per-type/{type}', [TypeController::class, 'projectsPerType'])->name('projectsPerType');
         Route::delete('projects/delete-multiple', [ProjectsController::class, 'deleteMultiple'])->name('deleteMultiple');
-        Route::get('/projects/trash', [ProjectsController::class, 'projectsTrash'])->name('projects.trash');
+        Route::get('/projects/trash', [ProjectsController::class, 'trash'])->name('projects.trash');
+        Route::patch('/projects/{project}/restore', [ProjectsController::class, 'restore'])->name('projects.restore');
+        Route::delete('/projects/{project}/delete', [ProjectsController::class, 'delete'])->name('projects.delete');
         Route::resource('projects', ProjectsController::class);
         Route::resource('types', TypeController::class)->except([
             'show', 'edit', 'create'

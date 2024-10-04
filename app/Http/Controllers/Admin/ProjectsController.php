@@ -116,7 +116,7 @@ class ProjectsController extends Controller
     {
         $project->delete();
 
-        return redirect()->route('admin.projects.index')->with('deleted', 'Il Progetto è stato cancellato correttamente');
+        return redirect()->route('admin.projects.index')->with('deleted', 'Il Progetto "' . $project->title . '" è stato spostato nel cestino');
     }
 
     public function deleteMultiple(Request $request){
@@ -132,9 +132,28 @@ class ProjectsController extends Controller
         return redirect()->route('admin.projects.index')->with('error', 'Nessun progetto selezionato.');
     }
 
-    public function projectsTrash(){
+    public function trash(){
         $projects = Project::onlyTrashed()->orderBy('id', 'desc')->get();
 
         return view('admin.projects.trash', compact('projects'));
+    }
+
+    public function restore($id){
+        $project = Project::withTrashed()->find($id);
+        $project->restore();
+
+        return redirect()->route('admin.projects.index')->with('restored', 'Il Progetto "' . $project->title . '" è stato ripristinato correttamente');
+    }
+
+    public function delete($id){
+        $project = Project::withTrashed()->find($id);
+
+        if ($project->img_path) {
+            Storage::delete($project->img_path);
+        }
+
+        $project->forceDelete();
+
+        return redirect()->route('admin.projects.index')->with('deleted', 'Il Progetto "' . $project->title . '" è stato eliminato definitivamente');
     }
 }
