@@ -120,7 +120,7 @@ class ProjectsController extends Controller
     }
 
     public function deleteMultiple(Request $request){
-        
+
         //Ritrasformo il Json Javascript con l'array di Id selezionati in un array Php
         $projectIds = json_decode($request->input('selected_projects'));
 
@@ -130,5 +130,11 @@ class ProjectsController extends Controller
         }
 
         return redirect()->route('admin.projects.index')->with('error', 'Nessun progetto selezionato.');
+    }
+
+    public function projectsTrash(){
+        $projects = Project::onlyTrashed()->orderBy('id', 'desc')->get();
+
+        return view('admin.projects.projectsTrash', compact('projects'));
     }
 }

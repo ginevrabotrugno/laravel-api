@@ -36,5 +36,11 @@
                 <span>Type Projects</span>
             </a>
         </li>
+        <li>
+            <a href="{{ route('admin.projectsTrash') }}" class="nav-link text-white">
+                <i class="fa-solid fa-trash-can"></i>
+                <span>Trash</span>
+            </a>
+        </li>
     </ul>
 </div>

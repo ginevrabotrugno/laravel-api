@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('end_date')->nullable();
             $table->string('status')->default('in progress');
             $table->string('project_url')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

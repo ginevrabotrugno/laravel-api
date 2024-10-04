@@ -1,3 +1,4 @@
+
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
@@ -30,6 +31,7 @@ Route::middleware(['auth', 'verified'])
         Route::get('projects-per-type/{type}', [TypeController::class, 'projectsPerType'])->name('projectsPerType');
         Route::delete('projects/delete-multiple', [ProjectsController::class, 'deleteMultiple'])->name('deleteMultiple');
         Route::resource('projects', ProjectsController::class);
+        Route::get('/projects-trash', [ProjectsController::class, 'projectsTrash'])->name('projectsTrash');
         Route::resource('types', TypeController::class)->except([
             'show', 'edit', 'create'
         ]);
