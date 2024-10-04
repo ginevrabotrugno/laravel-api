@@ -30,8 +30,8 @@ Route::middleware(['auth', 'verified'])
         Route::get('projs-per-type', [TypeController::class, 'typeProjects'])->name('typeProjects');
         Route::get('projects-per-type/{type}', [TypeController::class, 'projectsPerType'])->name('projectsPerType');
         Route::delete('projects/delete-multiple', [ProjectsController::class, 'deleteMultiple'])->name('deleteMultiple');
+        Route::get('/projects/trash', [ProjectsController::class, 'projectsTrash'])->name('projects.trash');
         Route::resource('projects', ProjectsController::class);
-        Route::get('/projects-trash', [ProjectsController::class, 'projectsTrash'])->name('projectsTrash');
         Route::resource('types', TypeController::class)->except([
             'show', 'edit', 'create'
         ]);

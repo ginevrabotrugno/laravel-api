@@ -135,6 +135,6 @@ class ProjectsController extends Controller
     public function projectsTrash(){
         $projects = Project::onlyTrashed()->orderBy('id', 'desc')->get();
 
-        return view('admin.projects.projectsTrash', compact('projects'));
+        return view('admin.projects.trash', compact('projects'));
     }
 }
