@@ -23,7 +23,7 @@ class ProjectsController extends Controller
 
         if($request->has('search') && $request->search !== ''){
             $search = $request->search;
-            $projects = Project::where('title', 'LIKE', "%{$search}%")->orderBy('id')->paginate(10);
+            $projects = Project::where('title', 'LIKE', "%{$search}%")->orderBy('id', 'desc')->paginate(10);
         } else {
             $projects = Project::orderBy('id', 'desc')->paginate(10);
         }
