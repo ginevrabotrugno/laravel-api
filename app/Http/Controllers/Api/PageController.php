@@ -107,6 +107,19 @@ class PageController extends Controller
         return response()->json(compact('success', 'technology'));
     }
 
+    public function search(Request $request){
+        $success = true;
+
+        if($request->has('search') && $request->search !== ''){
+            $search = $request->input('search');
+            $projects = Project::where('title', 'LIKE', "%{$search}%")->with('type', 'technologies')->orderBy('id', 'desc')->paginate(8);
+        } else {
+            $projects = Project::orderBy('id', 'desc')->with('type', 'technologies')->paginate(8);
+        }
+
+        return response()->json(compact('success', 'projects'));
+    }
+
 }
 
 
